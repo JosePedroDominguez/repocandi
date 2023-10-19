@@ -38,52 +38,63 @@ export class CandidateFormComponent implements OnInit {
 }
 
 <section class="pt-5 section-admin-table">
-  <form [formGroup]="candidateForm" (ngSubmit)="onSubmit()">
-    <div class="d-flex gap-3 w-50 container-inputs">
-      <label for="name">Name:</label>
-      <input type="text" id="name" formControlName="name" class="form-control w-100">
+  <form [formGroup]="candidateForm" (ngSubmit)="onSubmit()" class="container">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" id="name" formControlName="name" class="form-control">
+      </div>
+      <div class="col-md-6">
+        <label for="lastName" class="form-label">Last Name:</label>
+        <input type="text" id="lastName" formControlName="lastName" class="form-control">
+      </div>
     </div>
-    <div class="d-flex gap-3 w-50 container-inputs">
-      <label for="lastName">Last Name:</label>
-      <input  class="form-control w-100" type="text" id="lastName" formControlName="lastName">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email:</label>
+        <input type="text" id="email" formControlName="email" class="form-control">
+      </div>
+      <div class="col-md-6">
+        <label for="country" class="form-label">Country:</label>
+        <input type="text" id="country" formControlName="country" class="form-control">
+      </div>
     </div>
-    <div class="d-flex gap-3 w-50 container-inputs">
-      <label for="email">Email:</label>
-      <input  class="form-control w-100" type="text" id="email" formControlName="email">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="address" class="form-label">Address:</label>
+        <input type="text" id="address" formControlName="address" class="form-control">
+      </div>
+      <div class="col-md-6">
+        <label for="phoneNumber" class="form-label">Phone Number:</label>
+        <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control">
+      </div>
     </div>
-    <div class="d-flex gap-3 w-50 container-inputs">
-      <label for="country">Country:</label>
-      <input  class="form-control w-100" type="text" id="country" formControlName="country">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="linkedIn" class="form-label">LinkedIn:</label>
+        <input type="text" id="linkedIn" formControlName="linkedIn" class="form-control">
+      </div>
+      <div class="col-md-6">
+        <label for="idState" class="form-label">State:</label>
+        <select id="idState" formControlName="idState" class="form-select">
+          <!-- Opciones de estados -->
+        </select>
+      </div>
     </div>
-    <div class="d-flex gap-3 w-50 container-inputs">
-      <label for="address">Address:</label>
-      <input  class="form-control w-100" type="text" id="address" formControlName="address">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="idTrackPosition" class="form-label">Track Position:</label>
+        <select id="idTrackPosition" formControlName="idTrackPosition" class="form-select">
+          <!-- Opciones de posiciones -->
+        </select>
+      </div>
     </div>
-    <div class="d-flex gap-3 w-50 container-inputs">
-      <label for="phoneNumber">Phone Number:</label>
-      <input  class="form-control w-100" type="text" id="phoneNumber" formControlName="phoneNumber">
-    </div>
-    <div class="d-flex gap-3 w-50 container-inputs">
-      <label for="linkedIn">LinkedIn:</label>
-      <input  class="form-control w-100" type="text" id="linkedIn" formControlName="linkedIn">
-    </div>
-    <div class="d-flex gap-3 w-50 container-inputs">
-      <label for="idState">State:</label>
-      <select id="idState" formControlName="idState">
-        <!-- Opciones de estados -->
-      </select>
-    </div>
-    <div class="d-flex gap-3 w-50 container-inputs">
-      <label for="idTrackPosition">Track Position:</label>
-      <select id="idTrackPosition" formControlName="idTrackPosition">
-        <!-- Opciones de posiciones -->
-      </select>
-    </div>
-    <div>
-      <button type="submit" [disabled]="!candidateForm.valid">Submit</button>
+    <div class="text-center">
+      <button type="submit" [disabled]="!candidateForm.valid" class="btn btn-primary">Submit</button>
     </div>
   </form>
 </section>
+
 Asegúrate de reemplazar <!-- Opciones de estados --> y <!-- Opciones de posiciones --> con las opciones correspondientes para los campos idState e idTrackPosition. Puedes cargar estas opciones desde tu servidor o definirlas manualmente en el componente.
 
 Paso 4: Estilizar el formulario
