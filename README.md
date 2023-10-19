@@ -37,51 +37,53 @@ export class CandidateFormComponent implements OnInit {
   }
 }
 
-<form [formGroup]="candidateForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="name">Name:</label>
-    <input type="text" id="name" formControlName="name">
-  </div>
-  <div>
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" formControlName="lastName">
-  </div>
-  <div>
-    <label for="email">Email:</label>
-    <input type="text" id="email" formControlName="email">
-  </div>
-  <div>
-    <label for="country">Country:</label>
-    <input type="text" id="country" formControlName="country">
-  </div>
-  <div>
-    <label for="address">Address:</label>
-    <input type="text" id="address" formControlName="address">
-  </div>
-  <div>
-    <label for="phoneNumber">Phone Number:</label>
-    <input type="text" id="phoneNumber" formControlName="phoneNumber">
-  </div>
-  <div>
-    <label for="linkedIn">LinkedIn:</label>
-    <input type="text" id="linkedIn" formControlName="linkedIn">
-  </div>
-  <div>
-    <label for="idState">State:</label>
-    <select id="idState" formControlName="idState">
-      <!-- Opciones de estados -->
-    </select>
-  </div>
-  <div>
-    <label for="idTrackPosition">Track Position:</label>
-    <select id="idTrackPosition" formControlName="idTrackPosition">
-      <!-- Opciones de posiciones -->
-    </select>
-  </div>
-  <div>
-    <button type="submit" [disabled]="!candidateForm.valid">Submit</button>
-  </div>
-</form>
+<section class="pt-5 section-admin-table">
+  <form [formGroup]="candidateForm" (ngSubmit)="onSubmit()">
+    <div class="d-flex gap-3 w-50 container-inputs">
+      <label for="name">Name:</label>
+      <input type="text" id="name" formControlName="name" class="form-control w-100">
+    </div>
+    <div class="d-flex gap-3 w-50 container-inputs">
+      <label for="lastName">Last Name:</label>
+      <input  class="form-control w-100" type="text" id="lastName" formControlName="lastName">
+    </div>
+    <div class="d-flex gap-3 w-50 container-inputs">
+      <label for="email">Email:</label>
+      <input  class="form-control w-100" type="text" id="email" formControlName="email">
+    </div>
+    <div class="d-flex gap-3 w-50 container-inputs">
+      <label for="country">Country:</label>
+      <input  class="form-control w-100" type="text" id="country" formControlName="country">
+    </div>
+    <div class="d-flex gap-3 w-50 container-inputs">
+      <label for="address">Address:</label>
+      <input  class="form-control w-100" type="text" id="address" formControlName="address">
+    </div>
+    <div class="d-flex gap-3 w-50 container-inputs">
+      <label for="phoneNumber">Phone Number:</label>
+      <input  class="form-control w-100" type="text" id="phoneNumber" formControlName="phoneNumber">
+    </div>
+    <div class="d-flex gap-3 w-50 container-inputs">
+      <label for="linkedIn">LinkedIn:</label>
+      <input  class="form-control w-100" type="text" id="linkedIn" formControlName="linkedIn">
+    </div>
+    <div class="d-flex gap-3 w-50 container-inputs">
+      <label for="idState">State:</label>
+      <select id="idState" formControlName="idState">
+        <!-- Opciones de estados -->
+      </select>
+    </div>
+    <div class="d-flex gap-3 w-50 container-inputs">
+      <label for="idTrackPosition">Track Position:</label>
+      <select id="idTrackPosition" formControlName="idTrackPosition">
+        <!-- Opciones de posiciones -->
+      </select>
+    </div>
+    <div>
+      <button type="submit" [disabled]="!candidateForm.valid">Submit</button>
+    </div>
+  </form>
+</section>
 Asegúrate de reemplazar <!-- Opciones de estados --> y <!-- Opciones de posiciones --> con las opciones correspondientes para los campos idState e idTrackPosition. Puedes cargar estas opciones desde tu servidor o definirlas manualmente en el componente.
 
 Paso 4: Estilizar el formulario
