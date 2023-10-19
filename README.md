@@ -50,19 +50,19 @@ export class CandidateFormComponent implements OnInit {
       <div class="col-md-6">
         <label for="name" class="form-label">Name:</label>
         <input type="text" id="name" formControlName="name" class="form-control" required maxlength="200">
-        <div *ngIf="candidateForm.get('name').hasError('maxlength')" class="text-danger">Name cannot exceed 200 characters.</div>
+        <div *ngIf="candidateForm.get('name')?.hasError('maxlength')" class="text-danger">Name cannot exceed 200 characters.</div>
       </div>
       <div class="col-md-6">
         <label for="lastName" class="form-label">Last Name:</label>
         <input type="text" id="lastName" formControlName="lastName" class="form-control" required maxlength="200">
-        <div *ngIf="candidateForm.get('lastName').hasError('maxlength')" class="text-danger">Last Name cannot exceed 200 characters.</div>
+        <div *ngIf="candidateForm.get('lastName')?.hasError('maxlength')" class="text-danger">Last Name cannot exceed 200 characters.</div>
       </div>
     </div>
     <div class="row mb-3">
       <div class="col-md-6">
         <label for="email" class="form-label">Email:</label>
         <input type="text" id="email" formControlName="email" class="form-control" required maxlength="200">
-        <div *ngIf="candidateForm.get('email').hasError('maxlength')" class="text-danger">Email cannot exceed 200 characters.</div>
+        <div *ngIf="candidateForm.get('email')?.hasError('maxlength')" class="text-danger">Email cannot exceed 200 characters.</div>
       </div>
       <div class="col-md-6">
         <label for="country" class="form-label">Country:</label>
@@ -88,7 +88,7 @@ export class CandidateFormComponent implements OnInit {
         <label for="idState" class="form-label">State:</label>
         <select id="idState" formControlName="idState" class="form-select" required>
           <option value="" disabled>Select a state</option>
-          <option *ngFor="let state of availableStates" [value]="state.id">{{state.name}}</option>
+          <option>  </option>
         </select>
       </div>
     </div>
@@ -110,14 +110,15 @@ export class CandidateFormComponent implements OnInit {
     </div>
     <div class="d-flex gap-3">
       <button class="btn btn-outline-success" type="submit" [disabled]="!candidateForm.valid">
-        Submit <span class="iconify" data-icon="ic:twotone-check-box"></span>
+        Create <span class="iconify" data-icon="ic:twotone-check-box"></span>
       </button>
-      <button class="btn btn-outline-danger me-3" type="button" (click)="onCancel()">
+      <button class="btn btn-outline-danger me-3" type="button" (click)="CleanForm()">
         Cancel <span class="iconify" data-icon="ic:twotone-cancel"></span>
       </button>
     </div>
   </form>
 </section>
+
 
 Asegúrate de reemplazar <!-- Opciones de estados --> y <!-- Opciones de posiciones --> con las opciones correspondientes para los campos idState e idTrackPosition. Puedes cargar estas opciones desde tu servidor o definirlas manualmente en el componente.
 
