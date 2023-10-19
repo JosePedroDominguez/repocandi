@@ -49,73 +49,76 @@ export class CandidateFormComponent implements OnInit {
     <div class="row mb-3">
       <div class="col-md-6">
         <label for="name" class="form-label">Name:</label>
-        <input type="text" id="name" formControlName="name" class="form-control">
+        <input type="text" id="name" formControlName="name" class="form-control" required maxlength="200">
+        <div *ngIf="candidateForm.get('name').hasError('maxlength')" class="text-danger">Name cannot exceed 200 characters.</div>
       </div>
       <div class="col-md-6">
         <label for="lastName" class="form-label">Last Name:</label>
-        <input type="text" id="lastName" formControlName="lastName" class="form-control">
+        <input type="text" id="lastName" formControlName="lastName" class="form-control" required maxlength="200">
+        <div *ngIf="candidateForm.get('lastName').hasError('maxlength')" class="text-danger">Last Name cannot exceed 200 characters.</div>
       </div>
     </div>
     <div class="row mb-3">
       <div class="col-md-6">
         <label for="email" class="form-label">Email:</label>
-        <input type="text" id="email" formControlName="email" class="form-control">
+        <input type="text" id="email" formControlName="email" class="form-control" required maxlength="200">
+        <div *ngIf="candidateForm.get('email').hasError('maxlength')" class="text-danger">Email cannot exceed 200 characters.</div>
       </div>
       <div class="col-md-6">
         <label for="country" class="form-label">Country:</label>
-        <input type="text" id="country" formControlName="country" class="form-control">
+        <input type="text" id="country" formControlName="country" class="form-control" maxlength="100">
       </div>
     </div>
     <div class="row mb-3">
       <div class="col-md-6">
         <label for="address" class="form-label">Address:</label>
-        <input type="text" id="address" formControlName="address" class="form-control">
+        <input type="text" id="address" formControlName="address" class="form-control" maxlength="100">
       </div>
       <div class="col-md-6">
         <label for="phoneNumber" class="form-label">Phone Number:</label>
-        <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control">
+        <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control" maxlength="15">
       </div>
     </div>
     <div class="row mb-3">
       <div class="col-md-6">
         <label for="linkedIn" class="form-label">LinkedIn:</label>
-        <input type="text" id="linkedIn" formControlName="linkedIn" class="form-control">
+        <input type="text" id="linkedIn" formControlName="linkedIn" class="form-control" maxlength="100">
       </div>
       <div class="col-md-6">
         <label for="idState" class="form-label">State:</label>
-        <select id="idState" formControlName="idState" class="form-select">
-          <!-- Opciones de estados -->
+        <select id="idState" formControlName="idState" class="form-select" required>
+          <option value="" disabled>Select a state</option>
+          <option *ngFor="let state of availableStates" [value]="state.id">{{state.name}}</option>
         </select>
       </div>
     </div>
     <div class="row mb-3">
       <div class="col-md-6">
         <label for="idTrackPosition" class="form-label">Track Position:</label>
-        <select id="idTrackPosition" formControlName="idTrackPosition" class="form-select">
+        <select id="idTrackPosition" formControlName="idTrackPosition" class="form-select" required>
           <option value="" disabled>Select a track position</option>
-          <option *ngFor="let track of availableTrack" [value]="track.id">{{track.trackPosition}}</option>
+          <option *ngFor="let track of availableTrackPositions" [value]="track.id">{{track.trackPosition}}</option>
         </select>
       </div>
-    </div>
-    <div class="row mb-3">
       <div class="col-md-6">
-        <label for="idTrackPosition" class="form-label">Skills:</label>
-        <select id="idTrackPosition" formControlName="idTrackPosition" class="form-select">
+        <label for="idSkill" class="form-label">Skills:</label>
+        <select id="idSkill" formControlName="idSkill" class="form-select" required>
           <option value="" disabled>Select a skill</option>
           <option *ngFor="let skill of availableSkills" [value]="skill.id">{{skill.skill}}</option>
         </select>
       </div>
     </div>
     <div class="d-flex gap-3">
-      <button class="btn btn-outline-success" type="submit"  [disabled]="!candidateForm.valid">
+      <button class="btn btn-outline-success" type="submit" [disabled]="!candidateForm.valid">
         Submit <span class="iconify" data-icon="ic:twotone-check-box"></span>
-      </button> 
-      <button class="btn btn-outline-danger me-3">
+      </button>
+      <button class="btn btn-outline-danger me-3" type="button" (click)="onCancel()">
         Cancel <span class="iconify" data-icon="ic:twotone-cancel"></span>
       </button>
     </div>
   </form>
 </section>
+
 Asegúrate de reemplazar <!-- Opciones de estados --> y <!-- Opciones de posiciones --> con las opciones correspondientes para los campos idState e idTrackPosition. Puedes cargar estas opciones desde tu servidor o definirlas manualmente en el componente.
 
 Paso 4: Estilizar el formulario
