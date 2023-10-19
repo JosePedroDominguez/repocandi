@@ -1,6 +1,65 @@
 control => {    return hasValidLength(control.value) && control.value.length > maxLength ? {      'maxlength': {        'requiredLength': maxLength,        'actualLength': control.value.length      }    } : null;  }
 
 
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+
+import { CandidateService } from  'src/app/services/candidate.service'; 
+import { ResponseDto } from 'src/app/models/response.dto';
+import { SkillUpdateModel } from 'src/app/models/skill.model';
+import { SkillService } from 'src/app/services/skill.service';
+import { StateUpdateModel } from 'src/app/models/state.model';
+import { TrackPositionModel } from 'src/app/models/trackPosition.model';
+import { TrackpositionService } from 'src/app/services/trackPosition.service';
+@Component({
+  selector: 'app-candidate',
+  templateUrl: './candidate.component.html',
+  styleUrls: ['./candidate.component.css']
+})
+export class CandidateComponent implements OnInit {
+  candidateForm : FormGroup;
+
+  availableSkills: SkillUpdateModel [] = [];
+  availableState: StateUpdateModel [] = [];
+  availableTrackPositions: TrackPositionModel [] = [];
+  
+  constructor(private fb: FormBuilder, private skillService: SkillService, private trackPositionService: TrackpositionService) {
+    this.candidateForm = this.fb.group({
+      name: ['', [Validators.required, Validators.maxLength(200)]],
+      lastName: ['', [Validators.required, Validators.maxLength(200)]],
+      email: ['', [Validators.required, Validators.maxLength(200)]],
+      country: ['', Validators.maxLength(100)],
+      address: ['', Validators.maxLength(100)],
+      phoneNumber: ['', Validators.maxLength(15)],
+      linkedIn: [Validators.maxLength(100)],
+      idState: [null, Validators.required],
+      idTrackPosition: [null, Validators.required],
+      idSkill: [null, Validators.required],
+    });
+  }
+
+  ngOnInit() {
+    this.skillService.getAll().subscribe((res) => {
+      this.availableSkills = res.result as SkillUpdateModel[];
+    });
+    this.trackPositionService.getAll().subscribe((res) =>{
+      this.availableTrackPositions = res.result as TrackPositionModel[];
+    });
+    
+  }
+  onSubmit() {
+    if (this.candidateForm.valid) {
+      const formData = this.candidateForm.value;
+      
+    }
+    else{
+
+    }
+  }
+  CleanForm(){
+    this.candidateForm.reset();
+  }
+}
 
 # repocandi
 import { Component, OnInit } from '@angular/core';
