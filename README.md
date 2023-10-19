@@ -1,3 +1,7 @@
+control => {    return hasValidLength(control.value) && control.value.length > maxLength ? {      'maxlength': {        'requiredLength': maxLength,        'actualLength': control.value.length      }    } : null;  }
+
+
+
 # repocandi
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
