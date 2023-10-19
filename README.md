@@ -92,7 +92,17 @@ export class CandidateFormComponent implements OnInit {
       <div class="col-md-6">
         <label for="idTrackPosition" class="form-label">Track Position:</label>
         <select id="idTrackPosition" formControlName="idTrackPosition" class="form-select">
-          <!-- Opciones de posiciones -->
+          <option value="" disabled>Select a track position</option>
+          <option *ngFor="let track of availableTrack" [value]="track.id">{{track.trackPosition}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="idTrackPosition" class="form-label">Skills:</label>
+        <select id="idTrackPosition" formControlName="idTrackPosition" class="form-select">
+          <option value="" disabled>Select a skill</option>
+          <option *ngFor="let skill of availableSkills" [value]="skill.id">{{skill.skill}}</option>
         </select>
       </div>
     </div>
@@ -106,7 +116,6 @@ export class CandidateFormComponent implements OnInit {
     </div>
   </form>
 </section>
-
 Asegúrate de reemplazar <!-- Opciones de estados --> y <!-- Opciones de posiciones --> con las opciones correspondientes para los campos idState e idTrackPosition. Puedes cargar estas opciones desde tu servidor o definirlas manualmente en el componente.
 
 Paso 4: Estilizar el formulario
