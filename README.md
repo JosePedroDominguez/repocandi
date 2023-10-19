@@ -39,6 +39,9 @@ export class CandidateFormComponent implements OnInit {
 
 <section class="pt-5 section-admin-table">
   <form [formGroup]="candidateForm" (ngSubmit)="onSubmit()" class="container">
+    <div class="border-bottom container-h1 m-auto mb-5">
+      <h1 class="mb-4 fs-1 title fw-bold">Create Candidate</h1>
+    </div>
     <div class="row mb-3">
       <div class="col-md-6">
         <label for="name" class="form-label">Name:</label>
@@ -89,8 +92,13 @@ export class CandidateFormComponent implements OnInit {
         </select>
       </div>
     </div>
-    <div class="text-center">
-      <button type="submit" [disabled]="!candidateForm.valid" class="btn btn-primary">Submit</button>
+    <div class="d-flex gap-3">
+      <button class="btn btn-outline-success" type="submit"  [disabled]="!candidateForm.valid">
+        Submit <span class="iconify" data-icon="ic:twotone-check-box"></span>
+      </button> 
+      <button class="btn btn-outline-danger me-3">
+        Cancel <span class="iconify" data-icon="ic:twotone-cancel"></span>
+      </button>
     </div>
   </form>
 </section>
