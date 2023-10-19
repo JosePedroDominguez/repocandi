@@ -109,11 +109,13 @@ export class CandidateFormComponent implements OnInit {
       <div class="col-md-6">
         <label for="name" class="form-label">Name:</label>
         <input type="text" id="name" formControlName="name" class="form-control" required maxlength="200">
+        <div *ngIf="candidateForm.get('name')?.hasError('required')" class="text-danger">Name is required.</div>
         <div *ngIf="candidateForm.get('name')?.hasError('maxlength')" class="text-danger">Name cannot exceed 200 characters.</div>
       </div>
       <div class="col-md-6">
         <label for="lastName" class="form-label">Last Name:</label>
         <input type="text" id="lastName" formControlName="lastName" class="form-control" required maxlength="200">
+        <div *ngIf="candidateForm.get('lastName')?.hasError('required')" class="text-danger">Last name is required.</div>
         <div *ngIf="candidateForm.get('lastName')?.hasError('maxlength')" class="text-danger">Last Name cannot exceed 200 characters.</div>
       </div>
     </div>
@@ -121,6 +123,7 @@ export class CandidateFormComponent implements OnInit {
       <div class="col-md-6">
         <label for="email" class="form-label">Email:</label>
         <input type="text" id="email" formControlName="email" class="form-control" required maxlength="200">
+        <div *ngIf="candidateForm.get('email')?.hasError('required')" class="text-danger">Email is required.</div>
         <div *ngIf="candidateForm.get('email')?.hasError('maxlength')" class="text-danger">Email cannot exceed 200 characters.</div>
       </div>
       <div class="col-md-6">
@@ -142,6 +145,8 @@ export class CandidateFormComponent implements OnInit {
       <div class="col-md-6">
         <label for="linkedIn" class="form-label">LinkedIn:</label>
         <input type="text" id="linkedIn" formControlName="linkedIn" class="form-control" maxlength="100">
+        <div *ngIf="candidateForm.get('linkedIn')?.hasError('maxlength')" class="text-danger">linkedIn cannot exceed 100 characters.</div>
+
       </div>
       <div class="col-md-6">
         <label for="idState" class="form-label">State:</label>
@@ -166,9 +171,16 @@ export class CandidateFormComponent implements OnInit {
           <option *ngFor="let skill of availableSkills" [value]="skill.id">{{skill.skill}}</option>
         </select>
       </div>
+      <div class="col-md-6">
+        <label for="idClient" class="form-label">Client:</label>
+        <select id="idClient" formControlName="idClient" class="form-select" required>
+          <option value="" disabled>Select a client</option>
+          <option *ngFor="let client of availableClient" [value]="client.id">{{client.client}}</option>
+        </select>
+      </div>
     </div>
     <div class="d-flex gap-3">
-      <button class="btn btn-outline-success" type="submit" [disabled]="!candidateForm.valid">
+      <button class="btn btn-outline-success" type="submit">
         Create <span class="iconify" data-icon="ic:twotone-check-box"></span>
       </button>
       <button class="btn btn-outline-danger me-3" type="button" (click)="CleanForm()">
