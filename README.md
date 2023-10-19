@@ -1,5 +1,12 @@
 control => {    return hasValidLength(control.value) && control.value.length > maxLength ? {      'maxlength': {        'requiredLength': maxLength,        'actualLength': control.value.length      }    } : null;  }
 
+<div class="row mb-3">
+  <div class="col-12">
+    <label for="comments" class="form-label">Comments:</label>
+    <textarea id="comments" formControlName="comments" class="form-control" rows="4" maxlength="500"></textarea>
+    <div *ngIf="candidateForm.get('comments')?.hasError('maxlength')" class="text-danger">Comments cannot exceed 500 characters.</div>
+  </div>
+</div>
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
