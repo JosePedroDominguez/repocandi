@@ -112,7 +112,205 @@ Paso 5: Usar el componente en tu aplicación
 Finalmente, utiliza el componente app-candidate-form en tu aplicación Angular donde desees mostrar el formulario.
 
 Recuerda ajustar las rutas y las importaciones de los módulos según la estructura de tu proyecto y las dependencias que estés utilizando.
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
+import { environment } from 'src/environment/environment';
+import { ResponseDto } from '../models/response.dto';
+
+import {
+  SkillInsertModel,
+  SkillUpdateModel,
+} from '../models/skill.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class SkillService {
+  private urlApi: string = `${environment.apiCandidates}${environment.serviceSkill}`;
+  constructor(private http: HttpClient) {}
+
+  getAll(): Observable<ResponseDto> {
+    return this.http.get<ResponseDto>(`${this.urlApi}GetAll`);
+  }
+
+  insert(model: SkillInsertModel): Observable<ResponseDto> {
+    return this.http.post<ResponseDto>(`${this.urlApi}Insert`, model);
+  }
+
+  update(model: SkillUpdateModel): Observable<ResponseDto> {
+    return this.http.put<ResponseDto>(`${this.urlApi}Update`, model);
+  }
+
+  delete(id: number): Observable<ResponseDto> {
+    return this.http.delete<ResponseDto>(`${this.urlApi}Delete/?id=${id}`);
+  }
+}
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { SkillService } from 'src/app/services/skill.service';
+import { SkillInsertModel, SkillUpdateModel } from 'src/app/models/skill.model';
+import { ResponseDto } from 'src/app/models/response.dto';
+
+import Swal from 'sweetalert2';
+
+@Component({
+  selector: 'app-skill',
+  templateUrl: './skill.component.html',
+  styleUrls: ['./skill.component.css']
+})
+export class SkillComponent implements OnInit {
+  form: FormGroup;
+  displayedColumns: string[] = ['Skill', 'delete', 'edit'];
+  dataSource = new MatTableDataSource<SkillUpdateModel>([]);
+  editingSkill: SkillUpdateModel = { id: 0, skill: '' };
+  creatingSkill: SkillInsertModel = { skill: '' };
+  isCreating: boolean = false;
+  newSkill = { Id: 0, Skill: '', isEditing: true, isCreating: true };
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(private skillService: SkillService, private fb: FormBuilder) {
+    this.form = this.fb.group({
+      Skill: [
+        '' || null,
+        [Validators.required, Validators.maxLength(100)]
+      ],
+    });
+  }
+
+  ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+    this.loadSkills();
+  }
+
+  loadSkills() {
+    this.skillService.getAll().subscribe(
+      (res) => {
+        this.dataSource.data = res.result as SkillUpdateModel[];
+      }
+    );
+  }
+
+  editSkill(skill: SkillUpdateModel) {
+    this.newSkill.isEditing = true;
+    this.editingSkill = skill;
+  }
+
+  cancelEdit(skill: SkillUpdateModel) {
+    this.editingSkill = { id: 0, skill: '' };
+    this.newSkill.isEditing = false;
+  }
+
+  saveSkillEdited() {
+    if (this.editingSkill) {
+      if (this.form.get('Skill')?.hasError('maxlength')) {
+        Swal.fire('Error!', 'Skill cannot exceed 100 characters.', 'error');
+        return;
+      }
+
+      if (this.editingSkill) {
+        this.skillService.update(this.editingSkill).subscribe(
+          (response: ResponseDto) => {
+            Swal.fire('Success!', 'Skill updated successfully', 'success');
+            this.loadSkills();
+            this.editingSkill = { id: 0, skill: '' };
+          },
+          (error) => {
+            Swal.fire('Error!', 'Failed to update skill.');
+            setTimeout(() => {
+              window.location.reload();
+            }, 5000);
+          }
+        );
+      }
+    }
+  }
+
+  startCreating() {
+    this.isCreating = true;
+  }
+
+  cancelCreating() {
+    this.isCreating = false;
+    this.newSkill = { Id: 0, Skill: '', isEditing: true, isCreating: true };
+  }
+
+  saveCreatingSkill() {
+    if (this.editingSkill) {
+      if (this.form.get('Skill')?.hasError('maxlength')) {
+        Swal.fire('Error!', 'Skill cannot exceed 100 characters.', 'error');
+        return;
+      }
+
+      this.creatingSkill.skill = this.form.get('Skill')?.value;
+
+      this.skillService.insert(this.creatingSkill).subscribe(
+        (response: ResponseDto) => {
+          Swal.fire('Success!', 'Skill created successfully', 'success');
+          this.loadSkills();
+          this.isCreating = false;
+          this.newSkill = { Id: 0, Skill: '', isEditing: true, isCreating: true };
+        },
+        (error) => {
+          console.error(error);
+          Swal.fire('Error!', 'Failed to create Skill. Error: ' + error.error.ExceptionMessage, 'error');
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
+      );
+    }
+  }
+
+
+  deleteSkill(id: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this operation!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Yes, Delete!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.skillService.delete(id).subscribe(
+          (response: ResponseDto) => {
+            Swal.fire(
+              'Deleted!',
+              'The Skill has been deleted.',
+              'success'
+            ).then(() => {
+              this.loadSkills();
+            });
+          },
+          (error) => {
+            console.error(error);
+            Swal.fire('Error!', 'Failed to delete Skill.');
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }
+        );
+      }
+    });
+  }
+}
+export interface SkillInsertModel {
+    skill: string;
+}
+
+export interface SkillUpdateModel {
+    skill: string;
+    id: number;
+}
 
 
 
