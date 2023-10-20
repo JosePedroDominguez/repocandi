@@ -1,5 +1,61 @@
-control => {    return hasValidLength(control.value) && control.value.length > maxLength ? {      'maxlength': {        'requiredLength': maxLength,        'actualLength': control.value.length      }    } : null;  }
+export interface CandidateInsertModel {
+    
+        name: string,
+        lastName: string,
+        email: string,
+        country: string,
+        address: string,
+        phoneNumber: string,
+        linkedIn: string,
+        idState: number,
+        idTrackPosition: number,
+   
+}
 
+export interface CandidateUpdateModel {
+        name: string,
+        lastName: string,
+        email: string,
+        country: string,
+        address: string,
+        phoneNumber: string,
+        linkedIn: string,
+        idState: number,
+        idTrackPosition: number,
+        id: number;
+}
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { environment } from 'src/environment/environment';
+import { ResponseDto } from '../models/response.dto';
+import { CandidateInsertModel , CandidateUpdateModel } from 'src/app/models/candidate.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CandidateService {
+  private urlApi: string = `${environment.apiCandidates}${environment.serviceCandidate}`;
+constructor(private http: HttpClient) { }
+
+getAll(): Observable<ResponseDto> {
+  return this.http.get<ResponseDto>(`${this.urlApi}GetAll`);
+}
+
+insert(model: CandidateInsertModel): Observable<ResponseDto> {
+  return this.http.post<ResponseDto>(`${this.urlApi}Insert`, model);
+}
+
+update(model: CandidateUpdateModel): Observable<ResponseDto> {
+  return this.http.put<ResponseDto>(`${this.urlApi}Update`, model);
+}
+
+delete(id: number): Observable<ResponseDto> {
+  return this.http.delete<ResponseDto>(`${this.urlApi}Delete/?id=${id}`);
+}
+
+}
 <div class="row mb-3">
   <div class="col-12">
     <label for="comments" class="form-label">Comments:</label>
