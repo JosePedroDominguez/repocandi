@@ -1,3 +1,36 @@
+export interface CandidateInsertModel {
+    
+        name: string,
+        lastName: string,
+        email: string,
+        country: string,
+        address: string,
+        phoneNumber: string,
+        linkedIn: string,
+        idState: number,
+        idTrackPosition: number,
+   
+}
+
+export interface CandidateUpdateModel {
+        name: string,
+        lastName: string,
+        email: string,
+        country: string,
+        address: string,
+        phoneNumber: string,
+        linkedIn: string,
+        idState: number,
+        idTrackPosition: number,
+        id: number;
+}
+
+
+
+
+
+
+
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
