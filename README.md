@@ -1,32 +1,8 @@
-    public IRepository<CandidateIndustryEntity> CandidateIndustryRepository
-    {
-        get
-        {
-            if (_candidateIndustryRepository == null)
-                _candidateIndustryRepository = new Repository<CandidateIndustryEntity>(_context);
+  Severity	Code	Description	Project	File	Line	Suppression State
+Error	CS0246	The type or namespace name 'Infraestructure' could not be found (are you missing a using directive or an assembly reference?)	Candidates	C:\Users\jose.pdominguez\source\repos\Api.Candiades\Candidates\Program.cs	2	Active
 
-            return _candidateIndustryRepository;
-        }
-    }
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	CS0246	The type or namespace name 'DataContext' could not be found (are you missing a using directive or an assembly reference?)	Candidates	C:\Users\jose.pdominguez\source\repos\Api.Candiades\Candidates\Program.cs	17	Active
 
-    public IRepository<CandidateStateHistoryEntity> CandidateStateHistoryRepository
-    {
-        get
-        {
-            if (_candidateStateHistoryRepository == null)
-                _candidateStateHistoryRepository = new Repository<CandidateStateHistoryEntity>(_context);
-
-            return _candidateStateHistoryRepository;
-        }
-    }
-
-    public IRepository<TypeStateEntity> TypeStateRepository
-    {
-        get
-        {
-            if (_typeStateRepository == null)
-                _typeStateRepository = new Repository<TypeStateEntity>(_context);
-
-            return _typeStateRepository;
-        }
-    }
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	CS0246	The type or namespace name 'SeedDb' could not be found (are you missing a using directive or an assembly reference?)	Candidates	C:\Users\jose.pdominguez\source\repos\Api.Candiades\Candidates\Program.cs	55	Active
