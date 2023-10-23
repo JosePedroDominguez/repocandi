@@ -1,9 +1,32 @@
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	CS0535	'UnitOfWork' does not implement interface member 'IUnitOfWork.CandidateIndustryRepository'	Infraestructure.Core	C:\Users\jose.pdominguez\source\repos\Api.Candiades\Infraestructure.Core\UnitOfWork\UnitOfWork.cs	12	Active
+    public IRepository<CandidateIndustryEntity> CandidateIndustryRepository
+    {
+        get
+        {
+            if (_candidateIndustryRepository == null)
+                _candidateIndustryRepository = new Repository<CandidateIndustryEntity>(_context);
 
+            return _candidateIndustryRepository;
+        }
+    }
 
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	CS0535	'UnitOfWork' does not implement interface member 'IUnitOfWork.CandidateStateHistoryRepository'	Infraestructure.Core	C:\Users\jose.pdominguez\source\repos\Api.Candiades\Infraestructure.Core\UnitOfWork\UnitOfWork.cs	12	Active
+    public IRepository<CandidateStateHistoryEntity> CandidateStateHistoryRepository
+    {
+        get
+        {
+            if (_candidateStateHistoryRepository == null)
+                _candidateStateHistoryRepository = new Repository<CandidateStateHistoryEntity>(_context);
 
-Severity	Code	Description	Project	File	Line	Suppression State
-Error	CS0535	'UnitOfWork' does not implement interface member 'IUnitOfWork.TypeStateRepository'	Infraestructure.Core	C:\Users\jose.pdominguez\source\repos\Api.Candiades\Infraestructure.Core\UnitOfWork\UnitOfWork.cs	12	Active
+            return _candidateStateHistoryRepository;
+        }
+    }
+
+    public IRepository<TypeStateEntity> TypeStateRepository
+    {
+        get
+        {
+            if (_typeStateRepository == null)
+                _typeStateRepository = new Repository<TypeStateEntity>(_context);
+
+            return _typeStateRepository;
+        }
+    }
